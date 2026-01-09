@@ -16,7 +16,7 @@ export default {
       this.$router.push('/menu/create/')
     },
     goEdit () {
-      this.$router.push('/menu/edit/99') // ส่ง menuId 1 - 999 LAB7
+      this.$router.push('/menu/edit/123') // ส่ง menuId 1 - 999 LAB7
     },
     goShow () {
       this.$router.push('/menu/1')
