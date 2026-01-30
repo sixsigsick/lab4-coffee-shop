@@ -1,0 +1,78 @@
+const { Coffee } = require('../models')
+
+module.exports = {
+    // get all coffee
+    async index (req, res) {
+        try {
+            const coffees = await Coffee.findAll()
+            res.send(coffees)
+        } catch (err) {
+            res.status(500).send({
+                error: 'An error has occured trying to fetch the coffees'
+            })
+        }
+    },
+
+    // create coffee
+    async create (req, res) {
+        try {
+            const coffee = await Coffee.create(req.body)
+            res.send(coffee)
+        } catch (err) {
+            res.status(500).send({
+                error: 'An error has occured trying to create the coffee'
+            })
+        }
+    },
+
+    // edit coffee
+    async put (req, res) {
+        try {
+            await Coffee.update(req.body, {
+                where: {
+                    id: req.params.coffeeId
+                }
+            })
+            res.send(req.body)
+        } catch (err) {
+            res.status(500).send({
+                error: 'An error has occured trying to update the coffee'
+            })
+        }
+    },
+
+    // delete coffee
+    async delete (req, res) {
+        try {
+            const {coffeeId} = req.params
+            const coffee = await Coffee.findOne({
+                where: {
+                    id: coffeeId
+                }
+            })
+            if (!coffee) {
+                return res.status(403).send({
+                    error: 'The coffee information was incorrect'
+                })
+            }
+            await coffee.destroy()
+            res.send(coffee)
+        } catch (err) {
+            res.status(500).send({
+                error: 'An error has occured trying to delete the coffee'
+            })
+        }
+    },
+
+    // show coffee by id
+    async show (req, res) {
+        try {
+            const coffee = await Coffee.findByPk(req.params.coffeeId)
+            res.send(coffee)
+        } catch (err) {
+            res.status(500).send({
+                error: 'An error has occured trying to show the coffee'
+            })
+        }
+    }
+}
