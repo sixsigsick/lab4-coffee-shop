@@ -1,14 +1,16 @@
 <template>
     <div>
         <h2>รายการเมนูกาแฟ (Coffee Shop)</h2>
-        <p><button @click="navigateTo('/coffee/create')">สร้างเมนูกาแฟใหม่</button></p>
         
-        <div v-if="coffees.length">
+        <p><button @click="navigateTo('/coffee/create')">สร้างเมนูกาแฟใหม่</button></p>
+        <hr>
+
+        <div v-if="coffees && coffees.length">
             <div>จำนวนเมนู: {{ coffees.length }}</div>
             <div v-for="coffee in coffees" :key="coffee.id">
                 <p>id: {{ coffee.id }}</p>
                 <p>ชื่อเมนู: {{ coffee.name }}</p>
-                <p>ราคา: {{ coffee.price }}</p>
+                <p>ราคา: {{ coffee.price }} บาท</p>
                 <p>ประเภท: {{ coffee.type }}</p>
                 <p>
                     <button @click="navigateTo('/coffee/'+ coffee.id)">ดูข้อมูล</button>
@@ -18,12 +20,15 @@
                 <hr>
             </div>
         </div>
+
         <div v-else>
-            <p>ไม่มีข้อมูลเมนูกาแฟ</p>
+            <p>ยังไม่มีข้อมูลเมนูกาแฟในระบบ</p>
         </div>
     </div>
 </template>
+
 <script>
+// แนะนำให้ใช้ @/ เพื่ออ้างอิงจากโฟลเดอร์ src โดยตรง
 import CoffeesService from '../../services/CoffeesService'
 
 export default {
@@ -33,10 +38,16 @@ export default {
         }
     },
     async created () {
-        this.coffees = (await CoffeesService.index()).data
+        try {
+            const response = await CoffeesService.index()
+            this.coffees = response.data
+        } catch (error) {
+            console.error("Error fetching coffees:", error)
+        }
     },
     methods: {
         navigateTo (route) {
+            // ฟังก์ชันเปลี่ยนหน้า
             this.$router.push(route)
         },
         async deleteCoffee (coffee) {
@@ -51,13 +62,9 @@ export default {
             }
         },
         async refreshData() {
-            this.coffees = (await CoffeesService.index()).data
-        },
-        goShow(coffeeId) {
-            this.$router.push('/coffee/' + coffeeId)
+            const response = await CoffeesService.index()
+            this.coffees = response.data
         }
     }
 }
 </script>
-<style scoped>
-</style>
