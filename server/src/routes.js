@@ -1,18 +1,26 @@
-const CoffeeController = require('./controllers/CoffeeController')
+const MenuController = require('./controllers/MenuController')
+const isAuthenController = require('./controllers/isAuthenController')
+const UserAuthenController = require('./controllers/UserAuthenController')
 
 module.exports = (app) => {
-    // Get all coffees
-    app.get('/coffees', CoffeeController.index)
-    
-    // Create coffee
-    app.post('/coffee', CoffeeController.create)
-    
-    // Edit coffee
-    app.put('/coffee/:coffeeId', CoffeeController.put)
-    
-    // Delete coffee
-    app.delete('/coffee/:coffeeId', CoffeeController.delete)
-    
-    // Show coffee by id
-    app.get('/coffee/:coffeeId', CoffeeController.show)
+  // ===== Auth =====
+  app.post('/login', UserAuthenController.login)
+  // optional: สร้าง admin (ถ้าอยากใช้)
+  app.post('/register', UserAuthenController.register)
+
+  // ===== Public (ดูเมนูได้สาธารณะ) =====
+  app.get('/menus', MenuController.index)
+  app.get('/menu/:id', MenuController.show)
+
+  // ===== Protected (ต้องมี Token) =====
+  app.post('/menu', isAuthenController, MenuController.create)
+  app.put('/menu/:id', isAuthenController, MenuController.update)
+  app.delete('/menu/:id', isAuthenController, MenuController.delete)
+
+  // Alias ตามโจทย์ (coffee)
+  app.get('/coffees', MenuController.index)
+  app.get('/coffee/:id', MenuController.show)
+  app.post('/coffee', isAuthenController, MenuController.create)
+  app.put('/coffee/:id', isAuthenController, MenuController.update)
+  app.delete('/coffee/:id', isAuthenController, MenuController.delete)
 }
