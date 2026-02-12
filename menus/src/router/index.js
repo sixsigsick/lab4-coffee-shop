@@ -12,6 +12,12 @@ import OrderEdit from '../components/Orders/EditOrder.vue'
 import OrderIndex from '../components/Orders/Index.vue'
 import OrderShow from '../components/Orders/ShowOrder.vue'
 
+import CoffeeIndex from '../components/Coffees/Index.vue'
+import CoffeeCreate from '../components/Coffees/CreateCoffee.vue'
+import CoffeeEdit from '../components/Coffees/EditCoffee.vue'
+import CoffeeShow from '../components/Coffees/ShowCoffee.vue'
+
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -65,7 +71,26 @@ const router = createRouter({
       name: "order-show",
       component: OrderShow
     },
-
+{
+      path: '/coffees',
+      name: 'coffees',
+      component: CoffeeIndex
+    },
+    {
+      path: '/coffee/create',
+      name: 'coffee-create',
+      component: CoffeeCreate
+    },
+    {
+      path: '/coffee/edit/:coffeeId',
+      name: 'coffee-edit',
+      component: CoffeeEdit
+    },
+    {
+      path: '/coffee/:coffeeId',
+      name: 'coffee',
+      component: CoffeeShow
+    },
 
 
     {
@@ -73,6 +98,7 @@ const router = createRouter({
       name: 'home',
       component: () => import('../views/HomeView.vue'),
     },
+    
   ]
 })
 
