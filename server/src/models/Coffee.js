@@ -1,9 +1,9 @@
 module.exports = (sequelize, DataTypes) => {
   const Coffee = sequelize.define('Coffee', {
-    name: DataTypes.STRING,
-    price: DataTypes.FLOAT,
-    type: DataTypes.STRING,
-    status: DataTypes.STRING
+    name: DataTypes.STRING,   // ชื่อเมนู
+    price: DataTypes.FLOAT,   // ราคา
+    type: DataTypes.STRING,   // ประเภท: ร้อน, เย็น, ปั่น
+    status: DataTypes.STRING  // สถานะ: มีจำหน่าย, หมด
   })
 
   return Coffee

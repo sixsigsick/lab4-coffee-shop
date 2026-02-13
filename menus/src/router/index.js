@@ -7,10 +7,6 @@ import MenuEdit from '../components/Menus/EditMenu.vue'
 import MenuIndex from '../components/Menus/Index.vue'
 import MenuShow from '../components/Menus/ShowMenu.vue'
 
-import OrderCreate from '../components/Orders/CreateOrder.vue'
-import OrderEdit from '../components/Orders/EditOrder.vue'
-import OrderIndex from '../components/Orders/Index.vue'
-import OrderShow from '../components/Orders/ShowOrder.vue'
 
 import CoffeeIndex from '../components/Coffees/Index.vue'
 import CoffeeCreate from '../components/Coffees/CreateCoffee.vue'
@@ -49,29 +45,7 @@ const router = createRouter({
       component: MenuShow
     },
 
-
-
     {
-      path: "/orders",
-      name: "orders",
-      component: OrderIndex
-    },
-    {
-      path: "/order/create",
-      name: "order-create",
-      component: OrderCreate
-    },
-    {
-      path: "/order/edit/:id",
-      name: "order-edit",
-      component: OrderEdit
-    },
-    {
-      path: "/order/:id",
-      name: "order-show",
-      component: OrderShow
-    },
-{
       path: '/coffees',
       name: 'coffees',
       component: CoffeeIndex

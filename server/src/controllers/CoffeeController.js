@@ -1,7 +1,7 @@
 const { Coffee } = require('../models')
 
 module.exports = {
-  // get all coffee
+  // Get all coffees (ดึงข้อมูลกาแฟทั้งหมด)
   async index (req, res) {
     try {
       const coffees = await Coffee.findAll()
@@ -13,7 +13,7 @@ module.exports = {
     }
   },
 
-  // create coffee
+  // Create coffee (สร้างเมนูกาแฟใหม่)
   async create (req, res) {
     try {
       const coffee = await Coffee.create(req.body)
@@ -25,7 +25,7 @@ module.exports = {
     }
   },
 
-  // update coffee
+  // Update coffee (แก้ไขข้อมูลกาแฟ)
   async put (req, res) {
     try {
       await Coffee.update(req.body, {
@@ -41,7 +41,7 @@ module.exports = {
     }
   },
 
-  // delete coffee
+  // Delete coffee (ลบเมนูกาแฟ)
   async remove (req, res) {
     try {
       const coffee = await Coffee.findOne({
@@ -65,7 +65,7 @@ module.exports = {
     }
   },
 
-  // get coffee by id
+  // Get coffee by id (ดูข้อมูลกาแฟรายเมนู)
   async show (req, res) {
     try {
       const coffee = await Coffee.findByPk(req.params.coffeeId)
